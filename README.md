@@ -6,7 +6,7 @@ npm install -g create-react-app
 
 ## Generating and Serving React Project
 
-create-react-app <Project name>
+create-react-app project-name
 
 npm start
 
@@ -24,9 +24,9 @@ Next, open index.js file in the src folder and add the following line into the i
 
 Open App.js in the src folder and update it as follows:
 
+```
 import { Navbar, NavbarBrand } from 'reactstrap';
 
-```
 class App extends Component {
   render() {
     return (
