@@ -24,22 +24,6 @@ function RenderDish({dish}){
 }
 
 
-function CheckDish({dish}){
-    if(dish!=null){
-      return(
-        <div>
-          <h4>Comments</h4>
-            <RenderComments comments= {dish.comments} />
-        </div>
-      );
-    }
-    else{
-      return(
-        <div></div>
-      );
-    }
-}
-
 
 function RenderComments({comments}){
     if(comments != null){
@@ -75,7 +59,7 @@ function DishDetail(props){
               <RenderDish dish={props.dish}/>
             </div>
             <div className="col col-md">
-              <CheckDish dish={props.dish}/>
+              <RenderComments comments={props.comments}/>
             </div>
           </div>
         </div>
