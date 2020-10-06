@@ -12,9 +12,9 @@ npm start
 
 ## Configuring React Project to use Bootstrap
 
-npm install bootstrap --save
-npm install reactstrap --save
-npm install react-popper --save
+* npm install bootstrap --save 
+* npm install reactstrap --save
+* npm install react-popper --save
 
 Next, open index.js file in the src folder and add the following line into the imports:
 
@@ -33,7 +33,7 @@ class App extends Component {
       <div className="App">
         <Navbar dark color="primary">
           <div className="container">
-            <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
+            <NavbarBrand href="/">Here goes the Navbar</NavbarBrand>
           </div>
         </Navbar>
       </div>
