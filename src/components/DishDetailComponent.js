@@ -29,7 +29,7 @@ function RenderDish({dish}){
 
 
 
-function RenderComments({comments}){
+function RenderComments({comments, addComment, dishId}){
     if(comments != null){
         var comm= comments.map((comment) => {
           var d = new Date(comment.date);
@@ -47,7 +47,7 @@ function RenderComments({comments}){
             <ListGroup>
               {comm}
             </ListGroup>
-            <CommentForm />
+            <CommentForm dishId = {dishId} addComment = {addComment}/>
           </React.Fragment>
         );
     }
@@ -77,8 +77,7 @@ class CommentForm extends Component {
   }
 
   handleSubmit(values) {
-      console.log('Current State is: ' + JSON.stringify(values));
-      alert('Current State is: ' + JSON.stringify(values));
+      this.props.addComment(this.props.dishId, values.rating, values.name, values.comment);
       //event.preventDefault();
   }
   render(){
@@ -156,7 +155,10 @@ class DishDetail extends Component{
               <RenderDish dish={this.props.dish}/>
             </div>
             <div className="col col-md">
-              <RenderComments comments={this.props.comments}/>
+              <RenderComments comments={this.props.comments}
+                addComment = {this.props.addComment}
+                dishId = {this.props.dish.id}
+              />
             </div>
           </div>
         </div>
