@@ -3,6 +3,8 @@ import {ListGroup, ListGroupItem} from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle, Button, Modal, ModalHeader, ModalBody, Label, Col, Row } from 'reactstrap';
 import {Control, LocalForm, Errors} from 'react-redux-form';
+import { Loading } from './LoadingComponent';
+
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -147,23 +149,47 @@ class CommentForm extends Component {
 }
 class DishDetail extends Component{
 
+  constructor(props){
+    super(props);
+ }
   render(){
-    return(
-        <div className="container">
-          <div className="row">
-            <div className="col-12 col-md-5 m-1">
-              <RenderDish dish={this.props.dish}/>
+    if (this.props.isLoading) {
+           return(
+               <div className="container">
+                   <div className="row">
+                       <Loading />
+                   </div>
+               </div>
+           );
+       }
+       else if (this.props.errMess) {
+           return(
+               <div className="container">
+                   <div className="row">
+                       <h4>{this.props.errMess}</h4>
+                   </div>
+               </div>
+           );
+       }
+
+      else if (this.props.dish!=null){
+        return(
+            <div className="container">
+              <div className="row">
+                <div className="col-12 col-md-5 m-1">
+                  <RenderDish dish={this.props.dish}/>
+                </div>
+                <div className="col col-md">
+                  <RenderComments comments={this.props.comments}
+                    addComment = {this.props.addComment}
+                    dishId = {this.props.dish.id}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="col col-md">
-              <RenderComments comments={this.props.comments}
-                addComment = {this.props.addComment}
-                dishId = {this.props.dish.id}
-              />
-            </div>
-          </div>
-        </div>
-    );
-  }
+        );
+     }
+  };
 }
 
 export default DishDetail;
