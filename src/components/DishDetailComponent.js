@@ -32,7 +32,7 @@ function RenderDish({dish}){
 
 
 
-function RenderComments({comments, addComment, dishId}){
+function RenderComments({comments, postComment, dishId}){
     if(comments != null){
         var comm= comments.map((comment) => {
           var d = new Date(comment.date);
@@ -50,7 +50,7 @@ function RenderComments({comments, addComment, dishId}){
             <ListGroup>
               {comm}
             </ListGroup>
-            <CommentForm dishId = {dishId} addComment = {addComment}/>
+            <CommentForm dishId = {dishId} postComment = {postComment}/>
           </React.Fragment>
         );
     }
@@ -80,7 +80,7 @@ class CommentForm extends Component {
   }
 
   handleSubmit(values) {
-      this.props.addComment(this.props.dishId, values.rating, values.name, values.comment);
+      this.props.postComment(this.props.dishId, values.rating, values.name, values.comment);
       //event.preventDefault();
   }
   render(){
@@ -182,7 +182,7 @@ class DishDetail extends Component{
                 </div>
                 <div className="col col-md">
                   <RenderComments comments={this.props.comments}
-                    addComment = {this.props.addComment}
+                    postComment = {this.props.postComment}
                     dishId = {this.props.dish.id}
                   />
                 </div>
