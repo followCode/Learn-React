@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Breadcrumb, BreadcrumbItem, Button, Label, Col, Row } from 'reactstrap';
 import {Control, LocalForm, Errors} from 'react-redux-form';
+import { baseUrl } from '../shared/baseUrl';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -23,8 +24,7 @@ class Contact extends Component{
 
 
   handleSubmit(values) {
-      console.log('Current State is: ' + JSON.stringify(values));
-      alert('Current State is: ' + JSON.stringify(values));
+        this.props.postFeedback(values.firstname, values.lastname, values.telnum, values.email, values.agree, values.contactType, values.message);
       //event.preventDefault();
   }
 
@@ -165,7 +165,7 @@ class Contact extends Component{
                           <Col md={{size: 6, offset: 2}}>
                               <div className="form-check">
                                   <Label check>
-                                      <Control.checkbox model=".agree" name="agree"
+                                      <Control.checkbox model=".agree" name="agree" id="agree"
                                           className="form-check-input"
                                            /> {' '}
                                           <strong>May we contact you?</strong>
@@ -173,7 +173,7 @@ class Contact extends Component{
                               </div>
                           </Col>
                           <Col md={{size: 3, offset: 1}}>
-                              <Control.select model=".contactType" name="contactType"
+                              <Control.select model=".contactType" name="contactType" id="contactType"
                                   className="form-control">
                                   <option>Tel.</option>
                                   <option>Email</option>

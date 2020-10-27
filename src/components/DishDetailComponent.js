@@ -5,6 +5,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,
 import {Control, LocalForm, Errors} from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 
 const required = (val) => val && val.length;
@@ -14,13 +15,19 @@ const minLength = (len) => (val) => val && (val.length >= len);
 function RenderDish({dish}){
     if(dish!=null){
       return(
-          <Card key={dish.id}>
-              <CardImg top width = "100%" src={baseUrl + dish.image} alt={dish.name} />
+        <FadeTransform
+              in
+              transformProps={{
+                  exitTransform: 'scale(0.5) translateY(-50%)'
+              }}>
+          <Card>
+              <CardImg top src={baseUrl + dish.image} alt={dish.name} />
               <CardBody>
-                <CardTitle><h5>{dish.name}</h5></CardTitle>
-                <CardText>{dish.description}</CardText>
+                  <CardTitle>{dish.name}</CardTitle>
+                  <CardText>{dish.description}</CardText>
               </CardBody>
           </Card>
+          </FadeTransform>
       );
     }
     else{
@@ -38,19 +45,23 @@ function RenderComments({comments, postComment, dishId}){
           var d = new Date(comment.date);
           var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             return(
-              <ListGroupItem  key ={comment.id} className="border-0">
-                  <p>{comment.comment}<br/>
-                  -- {comment.author}, {months[d.getMonth()]} {d.getDate()}, {d.getFullYear()}</p>
-              </ListGroupItem>
+              <Fade in>
+                <ListGroupItem  key ={comment.id} className="border-0">
+                    <p>{comment.comment}<br/>
+                    -- {comment.author}, {months[d.getMonth()]} {d.getDate()}, {d.getFullYear()}</p>
+                </ListGroupItem>
+              </Fade>
 
             );
         });
         return(
           <React.Fragment>
-            <ListGroup>
-              {comm}
-            </ListGroup>
-            <CommentForm dishId = {dishId} postComment = {postComment}/>
+              <stagger in>
+                <ListGroup>
+                  {comm}
+                </ListGroup>
+                <CommentForm dishId = {dishId} postComment = {postComment}/>
+              </stagger>
           </React.Fragment>
         );
     }
